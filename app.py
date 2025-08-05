@@ -9,7 +9,9 @@ def lambda_handler(event, context):
     key = event['Records'][0]['s3']['object']['key']
     logger.info(f"Processing file {key} from bucket {bucket}")
 
-    download_path = '/tmp/video.mp4'
+    video_name = os.path.splitext(os.path.basename(key))[0]
+
+    download_path = f'/tmp/{video_name}.mp4'
     frames_dir = '/tmp/frames'
     os.makedirs(frames_dir, exist_ok=True)
 
