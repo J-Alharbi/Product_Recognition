@@ -9,7 +9,7 @@ RUN yum update -y && yum install -y \
     mesa-libGL mesa-libGLU libpng zlib \
     && yum clean all
 
-# Copy and install Python dependencies
+# Copy requirements and install Python dependencies
 COPY requirements.txt .
 RUN pip install --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
