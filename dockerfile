@@ -1,5 +1,5 @@
 # Use pinned AWS Lambda Python 3.12 base image (Amazon Linux 2023)
-FROM public.ecr.aws/lambda/python:3.12.0
+FROM public.ecr.aws/lambda/python:3.12
 
 # Install system dependencies needed for OpenCV and image processing
 RUN dnf install -y \
