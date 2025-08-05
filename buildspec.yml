@@ -12,5 +12,5 @@ phases:
   post_build:
     commands:
       - echo Pushing the Docker image...
-      - docker push $816892137670.dkr.ecr.$AWS_REGION.amazonaws.com/product-recognition-lambda:latest
+      - docker push $816892137670.dkr.ecr.$eu-west-1.amazonaws.com/product-recognition-lambda:latest
       - echo Build completed on `date`
