@@ -1,6 +1,12 @@
+import boto3
+import cv2
+import os
 import logging
+
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
+
+s3 = boto3.client('s3')
 
 def lambda_handler(event, context):
     logger.info(f"Received event: {event}")
@@ -9,14 +15,14 @@ def lambda_handler(event, context):
     key = event['Records'][0]['s3']['object']['key']
     logger.info(f"Processing file {key} from bucket {bucket}")
 
-    video_name = os.path.splitext(os.path.basename(key))[0]
-
-    download_path = f'/tmp/{video_name}.mp4'
+    download_path = '/tmp/video.mp4'
     frames_dir = '/tmp/frames'
     os.makedirs(frames_dir, exist_ok=True)
 
+    # Download video from S3
     s3.download_file(bucket, key, download_path)
 
+    # Open video
     cap = cv2.VideoCapture(download_path)
     fps = cap.get(cv2.CAP_PROP_FPS)
     logger.info(f"Video FPS: {fps}")
