@@ -1,0 +1,16 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $eu-west-1 | docker login --username AWS --password-stdin $816892137670.dkr.ecr.$AWS_REGION.amazonaws.com
+  build:
+    commands:
+      - echo Build started on `date`
+      - docker build -t product-recognition-lambda .
+      - docker tag product-recognition-lambda:latest $816892137670.dkr.ecr.$eu-west-1.amazonaws.com/product-recognition-lambda:latest
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push $816892137670.dkr.ecr.$AWS_REGION.amazonaws.com/product-recognition-lambda:latest
+      - echo Build completed on `date`
