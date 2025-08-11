@@ -4,7 +4,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 s3 = boto3.client('s3')
 
-BATCH_SIZE = 50
+BATCH_SIZE = 10
 
 def lambda_handler(event, context):
     bucket = event['Records'][0]['s3']['bucket']['name']
